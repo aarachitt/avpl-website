@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #faf6ef;
+  color: #23201c;
+}
+
+a {
+  color: #b8862e;
+  text-decoration: none;
+}
+a:hover {
+  color: #8f6a21;
+}
+
+/* Visible, high-contrast focus ring everywhere — WCAG AA keyboard nav */
+:focus-visible {
+  outline: 2px solid #b8862e;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Respect reduced-motion preference across every custom animation */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.text-gradient-shimmer {
+  background: linear-gradient(100deg, #8a6a2e, #d9bd7a, #8a6a2e);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient-shimmer {
+    animation: none;
+    background-position: 0% 50%;
+  }
+}
+
+/* Magnetic hover buttons — JS sets transform; this just gives a smooth spring back */
+.magnetic {
+  transition: transform 0.15s ease;
+}
+
+::selection {
+  background: #e8ce8f;
+  color: #23201c;
+}
