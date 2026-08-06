@@ -83,8 +83,7 @@ export function ChatInterface() {
         </h2>
         <p className="mx-auto mb-6 max-w-md text-sm leading-[1.8] text-ink">
           This co-pilot is built to have genuine, reasoning conversations — not scripted replies —
-          so we're not simulating one here while the live connection is finalised. In the
-          meantime, try the guided AI Campaign Builder, or reach out directly.
+          so we&apos;re not simulating one here while the live connection is finalised. In the meantime, try the guided AI Campaign Builder, or reach out directly.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <Link
