@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { Footer } from "@/components/layout/Footer";
 import { CampaignWizard } from "@/components/campaign-builder/CampaignWizard";
@@ -32,6 +33,13 @@ export default function AICampaignBuilderPage() {
             <CampaignWizard />
           </div>
         </div>
+
+        <p className="mx-auto mb-4 max-w-[780px] px-6 text-center text-sm text-ink md:px-12">
+          Prefer an open conversation instead of a guided form?{" "}
+          <Link href="/ai-assistant" className="font-bold text-gold underline underline-offset-2">
+            Talk to the AI Assistant →
+          </Link>
+        </p>
       </div>
       <CtaBand />
       <Footer />

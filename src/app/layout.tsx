@@ -4,6 +4,14 @@ import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { siteConfig } from "@/lib/content/site";
+import { organizationJsonLd } from "@/lib/schema";
+
+// Exact meta title/description for the Home page per
+// AVPL_Website_Development_Brief.docx §3 (PAGE 1 — HOME). Reused here
+// as the sitewide default so untitled/edge-case pages still carry the
+// brief's exact entity-recognition copy rather than a generic fallback.
+const HOME_META_TITLE =
+  "Aarachitt Ventures | 360° Growth & Consultation Partner – Branding, Marketing, Ground Activation, Startup & Investor Advisory";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -23,19 +31,10 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.tagline}`,
+    default: HOME_META_TITLE,
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
-  keywords: [
-    "AVPL",
-    "Aarachitt Ventures",
-    "branding agency India",
-    "marketing agency Ahmedabad",
-    "360 growth agency",
-    "digital marketing agency",
-    "PR agency India",
-  ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   icons: {
@@ -46,13 +45,13 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    title: HOME_META_TITLE,
     description: siteConfig.description,
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    title: HOME_META_TITLE,
     description: siteConfig.description,
     images: ["/og-image.png"],
   },
@@ -60,22 +59,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-};
-
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: siteConfig.name,
-  alternateName: siteConfig.shortName,
-  url: siteConfig.url,
-  slogan: siteConfig.tagline,
-  email: siteConfig.email,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Ahmedabad",
-    addressCountry: "IN",
-  },
-  description: siteConfig.description,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -93,7 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           id="org-jsonld"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
         />
       </body>
     </html>

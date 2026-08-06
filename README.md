@@ -1,10 +1,16 @@
 # AVPL Website — Production Build
 
 Production Next.js implementation of the Aarachitt Ventures Pvt Ltd
-website, converted from the approved Claude Design prototype
-(`../project/Aarachitt Ventures Website.dc.html`). The original
-design bundle is preserved untouched one directory up — this folder
-is the buildable, deployable engineering output.
+website, built to `AVPL_Website_Development_Brief.docx` (content,
+routes, forms, AI, SEO/schema requirements) on top of the visual
+system established in the original approved Claude Design prototype
+(`../project/Aarachitt Ventures Website.dc.html`, preserved untouched
+one directory up).
+
+**Not launch-ready yet** — see `LAUNCH_CHECKLIST.md` for the four
+genuine open items (real contact details, the Ching's Schezwan case
+study, the AI Assistant's live credential, final logo/brand codes).
+Everything else in the brief is implemented and testable today.
 
 ## Stack
 
@@ -12,8 +18,9 @@ is the buildable, deployable engineering output.
 - **Tailwind CSS**, themed with AVPL's exact palette/type scale (see `tailwind.config.ts`)
 - **Zod** for request validation (client + server)
 - **Resend** (default) or **SMTP via Nodemailer** for lead delivery
-- **Claude (Anthropic) API** for the AI Campaign Builder, with a deterministic,
-  zero-cost fallback generator that ships live by default
+- **Claude (Anthropic) API** for the AI Assistant (real multi-turn chat) and,
+  optionally, the AI Campaign Builder — both ship with honest, non-fake
+  offline states until a credential is supplied (see `LAUNCH_CHECKLIST.md`)
 - **Lucide** icons
 
 ## Getting started
@@ -28,38 +35,51 @@ npm run dev                  # http://localhost:3000
 ## Environment variables
 
 See `.env.example` for the full list with comments. Nothing needs to
-be filled in to run the site locally — every integration has a safe
-default:
+be filled in to run the site locally — every integration has a safe,
+honest default:
 
 | Concern | Default behaviour with no config |
 |---|---|
-| AI Campaign Builder | `AI_PROVIDER=fallback` — deterministic blueprint generator, no external calls, no cost. |
-| Contact form / lead delivery | Logs a warning server-side and returns a clear error to the user instead of silently discarding the submission. Set `RESEND_API_KEY` (or `SMTP_*`) to actually deliver leads. |
+| AI Assistant (`/ai-assistant`) | Shows an explicit "being connected" state — never a fake/simulated conversation, per the brief's ban on scripted AI. |
+| AI Campaign Builder (`/ai-campaign-builder`) | Deterministic, zero-cost blueprint generator — no external calls. |
+| Contact / Partnership forms | Logs a warning server-side and returns a clear error instead of silently discarding the submission. Requires `LEADS_FROM_EMAIL` + `LEADS_TO_EMAIL` + a provider key before any lead can actually deliver. |
 
-To turn on live AI generation: set `AI_PROVIDER=anthropic` and
-`ANTHROPIC_API_KEY` in your environment. The integration is fully
-built — no code changes are needed, and if the API call fails for any
-reason at runtime, requests automatically fall back to the
-deterministic generator rather than breaking the page.
+Set `AI_PROVIDER=anthropic` + `ANTHROPIC_API_KEY` to bring the AI
+Assistant (and, if desired, the Campaign Builder) live — no code
+changes needed.
 
 ## Project structure
 
 ```
 src/
-  app/                    # routes (App Router) — one folder per page
-    api/contact/          # POST — contact form submission
-    api/campaign-builder/ # POST — AI blueprint generation
+  app/
+    page.tsx                 Home
+    about/                    Who We Are
+    services/                 Services (15 cards + FAQ + JSON-LD)
+    impact/                   Our Impact (+ case-study placeholder)
+    ai-assistant/              Real LLM chat
+    ai-campaign-builder/       Guided 5-step blueprint wizard
+    consultation/              Categories + Partner Network + Partnership form
+    contact/                   Lead capture
+    api/
+      contact/, partnership/, campaign-builder/, ai-assistant/
+    sitemap.ts, robots.ts
   components/
-    layout/                Header, Footer, CtaBand
-    ui/                     Button, Chip, Magnetic (shared primitives)
-    home/, services/, wins/, contact/, campaign-builder/
+    layout/                   Header, Footer, CtaBand
+    ui/                        Button, Chip, Magnetic
+    services/, impact/, consultation/, ai-assistant/, campaign-builder/, contact/
   lib/
-    content/               Single source of truth for services, wins, nav, site config
-    validation/             Zod schemas (contact + campaign wizard)
-    ai/                     Provider abstraction (fallback + Anthropic)
-    email/                  Provider abstraction (Resend + SMTP) + templates
+    content/                   Single source of truth: site, about, services,
+                                consultation, faq, wins (impact)
+    validation/                 Zod schemas
+    ai/                         knowledge.ts (system-prompt grounding),
+                                 chat.ts (Assistant), fallback.ts + anthropic.ts (Campaign Builder)
+    email/                      Provider abstraction (Resend + SMTP) + templates
+    schema.ts                   Organization / LocalBusiness / Service / FAQPage JSON-LD
     rate-limit.ts, spam-check.ts, sanitize.ts
-  types/                   Shared TypeScript types
+  types/
+public/
+  llms.txt                     AI-crawler discoverability summary
 ```
 
 ## Routes
@@ -67,14 +87,17 @@ src/
 | Route | Description |
 |---|---|
 | `/` | Home |
-| `/who-we-are` | Mission, vision, core belief |
-| `/services` | 10 service verticals, expand/collapse, explored-progress |
-| `/wins` | Brands, institutions, ventures worked with |
-| `/ai-campaign-builder` | 5-step AI Campaign Builder wizard |
-| `/contact` | Lead capture form |
-| `/api/contact` | POST — validated, sanitized, rate-limited contact submission |
-| `/api/campaign-builder` | POST — validated, rate-limited blueprint generation |
-| `/sitemap.xml`, `/robots.txt` | Generated automatically from `app/sitemap.ts` / `app/robots.ts` |
+| `/about` | Who We Are — mission, vision, values, mission pillars |
+| `/services` | 15 service verticals + FAQ accordion + `FAQPage`/`Service` JSON-LD |
+| `/impact` | Brands/institutions/ventures + Ching's Schezwan case-study placeholder |
+| `/ai-assistant` | Real multi-turn LLM chat, grounded in AVPL's own content |
+| `/ai-campaign-builder` | Guided 5-step blueprint wizard |
+| `/consultation` | Consultation categories, Partner Network, disclaimer, Partnership form |
+| `/contact` | Lead capture, pending contact details shown honestly |
+| `/api/contact`, `/api/partnership` | POST — validated/sanitized/rate-limited lead delivery |
+| `/api/campaign-builder` | POST — blueprint generation |
+| `/api/ai-assistant` | GET (config check) / POST — chat turn |
+| `/sitemap.xml`, `/robots.txt`, `/llms.txt` | Crawler discoverability (AI crawlers explicitly allowed) |
 
 ## Build & deploy
 
@@ -83,35 +106,21 @@ npm run build
 npm run start   # production server on :3000
 ```
 
-The app is a standard Next.js production build with no
-platform-specific assumptions — it deploys to Vercel with zero
-config, or to any Node 18+ host (Render, Railway, a VPS behind
-PM2/systemd, Docker) via `next build && next start`. API routes run
-as standard Next.js route handlers (`export const runtime = "nodejs"`),
-so no separate backend service is required.
+Standard Next.js production build, no platform-specific assumptions —
+deploys to Vercel with zero config, or any Node 18+ host via
+`next build && next start`. API routes are standard Next.js route
+handlers (`export const runtime = "nodejs"`), no separate backend
+service required.
 
-Before going live:
+Before going live, work through `LAUNCH_CHECKLIST.md` in full — it is
+the authoritative list of what's still pending and exactly where to
+fill each item in.
 
-1. Set all required env vars on your host (see `.env.example`).
-2. Verify a sending domain with your email provider (Resend/SMTP) so
-   `LEADS_FROM_EMAIL` doesn't land in spam.
-3. Update `NEXT_PUBLIC_SITE_URL` to your real domain (used by canonical
-   tags, OG metadata and the sitemap).
-4. Replace `public/og-image.png` (1200×630) with real social-share
-   artwork — none is included yet.
-5. Point DNS at your chosen host.
+## Content architecture
 
-## Notes on fidelity to the approved design
-
-Palette, type (Playfair Display + Manrope), spacing, card styling,
-hover/motion language (float, shimmer, fade-up, magnetic buttons) and
-all copy are ported directly from `Aarachitt Ventures Website.dc.html`.
-Two things were intentionally *not* carried over:
-
-- An unused chat-widget code path that existed in the prototype's JS
-  but was never rendered in any screen (dead code).
-- The Founder section and 4 additional services mentioned in the
-  original brief/content docs but absent from the approved design —
-  left out per an explicit scope decision to match the approved
-  `.dc.html` exactly. Straightforward to add later (`src/lib/content/services.ts`
-  and a new `/who-we-are` section) if wanted.
+All brief copy lives in `src/lib/content/*.ts` as the single source of
+truth — nav, services (with `contactCategory` mapping used by "Get
+this built by AVPL" links), consultation categories/partner network,
+FAQ, and company/contact config. The AI system prompt
+(`src/lib/ai/knowledge.ts`) is generated FROM these same modules, so
+the website and the AI Assistant can never drift out of sync.

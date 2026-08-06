@@ -2,7 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { contactServiceOptions } from "@/lib/content/services";
+import { contactServiceOptions as contactServiceOptionsConst } from "@/lib/content/services";
+
+// Widened to `readonly string[]` so `.includes()` accepts a plain
+// `string` (from URL search params / handoff context) without
+// TypeScript narrowing the argument to the literal union type.
+const contactServiceOptions: readonly string[] = contactServiceOptionsConst;
 import { readCampaignContext, clearCampaignContext, type CampaignContext } from "@/lib/campaign-handoff";
 
 type FormState = {

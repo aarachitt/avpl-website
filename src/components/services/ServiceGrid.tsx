@@ -126,7 +126,7 @@ function ServiceCard({
         id={panelId}
         className="flex flex-col gap-2 overflow-hidden border-t transition-[max-height,opacity,margin-top,padding-top] duration-[380ms]"
         style={{
-          maxHeight: open ? "360px" : "0px",
+          maxHeight: open ? "420px" : "0px",
           opacity: open ? 1 : 0,
           marginTop: open ? "16px" : "0px",
           paddingTop: open ? "16px" : "0px",
@@ -140,12 +140,21 @@ function ServiceCard({
           </div>
         ))}
         <Link
-          href={`/contact?service=${encodeURIComponent(service.name)}`}
+          href={`/contact?service=${encodeURIComponent(service.contactCategory)}`}
           onClick={(e) => e.stopPropagation()}
-          className="mt-1 inline-block text-[13px] font-bold text-gold underline decoration-gold/40 underline-offset-2 hover:text-gold-dark"
+          className="mt-1 inline-block text-[13px] font-bold text-gold underline underline-offset-2 hover:text-gold-dark"
         >
           Get this built by AVPL &rarr;
         </Link>
+        {service.linksTo && (
+          <Link
+            href={service.linksTo.href}
+            onClick={(e) => e.stopPropagation()}
+            className="inline-block text-[13px] font-bold text-charcoal underline underline-offset-2 hover:text-gold"
+          >
+            {service.linksTo.label}
+          </Link>
+        )}
       </div>
     </div>
   );

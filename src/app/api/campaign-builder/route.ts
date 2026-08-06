@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (isLikelySpam(parsed.data)) {
+  if (isLikelySpam({ honeypot: parsed.data.website, renderedAt: parsed.data.renderedAt })) {
     return NextResponse.json({ ok: false, error: "Request rejected." }, { status: 400 });
   }
 

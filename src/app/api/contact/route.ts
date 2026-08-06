@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (isLikelySpam(parsed.data)) {
+  if (isLikelySpam({ honeypot: parsed.data.website, renderedAt: parsed.data.renderedAt })) {
     // Return a generic success to avoid tipping off bots — don't
     // deliver the email, but don't error either.
     return NextResponse.json({ ok: true });
@@ -49,8 +49,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         ok: false,
-        error:
-          "We couldn't send your message right now. Please try again in a moment, or email hello@aarachittventures.com directly.",
+        error: "We couldn't send your message right now. Please try again in a moment.",
       },
       { status: 502 }
     );

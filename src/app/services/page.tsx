@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { Footer } from "@/components/layout/Footer";
 import { ServiceGrid } from "@/components/services/ServiceGrid";
+import { FaqAccordion } from "@/components/services/FaqAccordion";
+import { services } from "@/lib/content/services";
+import { serviceListJsonLd, faqPageJsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Services — The AVPL Growth Ecosystem",
+  title: "Services",
   description:
-    "10 core service verticals: Branding, Marketing Strategy, Digital Marketing, Social Media Marketing, PR, Event Marketing, Influencer Marketing, Content Production, CSR Campaigns and Corporate Training.",
+    "The Aarachitt Growth Ecosystem: branding, marketing strategy, consultation, digital marketing, PR, events, content, CSR, corporate training, prototype & MVP development, AI-integrated product development, website & digital presence, and on-ground activation.",
   alternates: { canonical: "/services" },
 };
 
@@ -25,10 +29,33 @@ export default function ServicesPage() {
             <p className="text-[15px] text-ink">Click any card to reveal what&apos;s inside</p>
           </div>
           <ServiceGrid />
+
+          {/* FAQ */}
+          <section className="mx-auto mt-24 max-w-[820px]">
+            <h2 className="mb-10 text-center font-display text-[clamp(24px,2.8vw,34px)] font-semibold">
+              Frequently Asked Questions
+            </h2>
+            <FaqAccordion />
+          </section>
         </div>
       </div>
       <CtaBand />
       <Footer />
+
+      {/* Service JSON-LD — one entry per category */}
+      {serviceListJsonLd().map((entry, i) => (
+        <Script
+          key={services[i]?.slug ?? i}
+          id={`service-jsonld-${services[i]?.slug ?? i}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(entry) }}
+        />
+      ))}
+      <Script
+        id="faq-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageJsonLd()) }}
+      />
     </>
   );
 }

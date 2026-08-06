@@ -1,19 +1,45 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { CtaBand } from "@/components/layout/CtaBand";
 import { Footer } from "@/components/layout/Footer";
-import { whyCards, industries, siteConfig } from "@/lib/content/site";
-import { services, featuredServiceSlugs } from "@/lib/content/services";
-import { impactStats } from "@/lib/content/wins";
+import { siteConfig } from "@/lib/content/site";
 
+// Exact meta title/description for Home, per
+// AVPL_Website_Development_Brief.docx §3 (PAGE 1 — HOME).
 export const metadata: Metadata = {
-  title: `${siteConfig.name} — Build Brands. Generate Growth. Create Impact.`,
+  title:
+    "Aarachitt Ventures | 360° Growth & Consultation Partner – Branding, Marketing, Ground Activation, Startup & Investor Advisory",
   description: siteConfig.description,
   alternates: { canonical: "/" },
 };
 
-const featuredServices = services.filter((s) => featuredServiceSlugs.includes(s.slug));
+const snapshots = [
+  {
+    eyebrow: "Who We Are",
+    body: "Growth is not a department. It's a way of thinking. Aarachitt Ventures is the 360° growth and consultation partner for businesses, startups, and institutions that want more than a vendor.",
+    cta: "Learn More About Us →",
+    href: "/about",
+  },
+  {
+    eyebrow: "What We Do",
+    body: "From brand strategy and digital marketing to on-ground activation, consultation, and startup enablement — explore the full Aarachitt Growth Ecosystem.",
+    cta: "View All Services →",
+    href: "/services",
+  },
+  {
+    eyebrow: "Our Impact",
+    body: "Trusted by consumer brands, educational institutions, and ventures across India.",
+    cta: "See Our Work →",
+    href: "/impact",
+  },
+  {
+    eyebrow: "AI Assistant",
+    body: "Meet your growth co-pilot — a genuine AI assistant trained on our philosophy, services, and expertise, built to reason through your business challenges, not just answer FAQs.",
+    cta: "Start a Conversation →",
+    href: "/ai-assistant",
+  },
+];
 
 export default function HomePage() {
   return (
@@ -48,21 +74,35 @@ export default function HomePage() {
           <div className="mx-auto grid w-full max-w-[1240px] items-center gap-14 md:grid-cols-[1.15fr_0.85fr]">
             <div>
               <p className="mb-[22px] animate-fade-up text-xs font-bold uppercase tracking-[0.16em] text-gold-deep">
-                India&apos;s 360&deg; Growth &amp; Solutions Company
+                India&apos;s 360&deg; Growth, Solution &amp; Consultation Company
               </p>
-              <h1 className="mb-[26px] animate-fade-up font-display text-[clamp(42px,5.2vw,76px)] font-semibold leading-[1.06]">
-                Build Brands.
-                <br />
-                <span className="text-gradient-shimmer italic">Generate Growth.</span>
-                <br />
-                Create Impact.
+              <h1 className="mb-[26px] animate-fade-up font-display text-[clamp(36px,4.6vw,66px)] font-semibold leading-[1.12]">
+                Building Brands. <span className="text-gradient-shimmer italic">Generating Growth.</span>{" "}
+                Creating Impact.{" "}
+                <span className="text-[0.5em] font-medium leading-normal text-ink">
+                  — for businesses in Gujarat, across India, and around the world.
+                </span>
               </h1>
-              <p className="mb-9 max-w-[540px] animate-fade-up text-[17px] leading-[1.75] text-ink">
-                Every successful brand begins with a story. Every growing business needs a
-                strategy. Every lasting impact requires execution. We bring together branding,
-                marketing, culture, storytelling, events, content and growth strategy — moving
-                businesses from visibility to credibility, and from credibility to scale.
-              </p>
+              <div className="mb-9 max-w-[560px] animate-fade-up space-y-4 text-[16px] leading-[1.75] text-ink">
+                <p>
+                  Every successful brand begins with a story. Every growing business needs a
+                  strategy. Every lasting impact requires execution.
+                </p>
+                <p>
+                  At Aarachitt Ventures Pvt Ltd, we bring together all the elements of growth with
+                  our solutions in branding, marketing, culture, storytelling, events, content, and
+                  growth strategy — backed by end-to-end consultation across creative, business,
+                  finance, legal, and startup ecosystems, delivered directly and through a partner
+                  network with a combined 20 years of experience — to help businesses move from
+                  visibility to credibility and from credibility to scale.
+                </p>
+                <p>
+                  Whether you&apos;re a brand leading the market, a startup finding your voice, an
+                  NGO building reach, an institution building influence, or an established
+                  business seeking growth and structured advisory, we create systems that deliver
+                  measurable results.
+                </p>
+              </div>
               <div className="flex animate-fade-up flex-wrap gap-3.5">
                 <Button href="/services" variant="solid">
                   Explore Our Work
@@ -94,124 +134,58 @@ export default function HomePage() {
                   />
                 </div>
                 <p className="text-[11px] uppercase tracking-[0.1em] text-ink-soft">
-                  Balance &middot; Growth &middot; Impact
+                  Growth &middot; Consultation &middot; Impact
                 </p>
               </div>
             </div>
           </div>
         </section>
-
-        {/* WHY AVPL */}
-        <section className="relative z-[1] mx-auto max-w-[1240px] px-6 pb-20 pt-24 md:px-12">
-          <div className="mb-14 text-center">
-            <p className="mb-3.5 text-xs font-bold uppercase tracking-[0.16em] text-gold-deep">
-              Why AVPL
-            </p>
-            <h2 className="mx-auto max-w-xl font-display text-[clamp(28px,3.2vw,42px)] font-semibold">
-              Three beliefs behind everything we build
-            </h2>
-          </div>
-          <div className="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
-            {whyCards.map((card) => (
-              <div
-                key={card.num}
-                className="rounded-card border border-ivory-border bg-ivory-card p-9 px-[30px] transition-all duration-[350ms] hover:-translate-y-2 hover:shadow-card"
-              >
-                <div className="mb-[18px] font-display text-[34px] font-semibold text-gold">
-                  {card.num}
-                </div>
-                <h3 className="mb-2.5 text-lg font-bold">{card.title}</h3>
-                <p className="text-sm leading-[1.7] text-ink">{card.body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* INDUSTRIES */}
-        <section className="relative z-[1] mx-auto max-w-[1240px] px-6 pb-24 pt-4 md:px-12">
-          <div className="mb-9 text-center">
-            <p className="mb-3.5 text-xs font-bold uppercase tracking-[0.16em] text-gold-deep">
-              Who We Work With
-            </p>
-            <h2 className="font-display text-[clamp(24px,2.8vw,34px)] font-semibold">
-              Built for every kind of ambition
-            </h2>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3.5">
-            {industries.map((ind) => (
-              <span
-                key={ind}
-                className="rounded-pill border-[1.5px] border-champagne px-6 py-3 text-sm font-semibold transition-all duration-300 hover:border-charcoal hover:bg-charcoal hover:text-ivory"
-              >
-                {ind}
-              </span>
-            ))}
-          </div>
-        </section>
       </div>
 
-      {/* SERVICES TEASER */}
-      <section className="bg-charcoal px-6 py-24 text-ivory md:px-12">
-        <div className="mx-auto max-w-[1240px]">
-          <div className="mb-11 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="mb-3.5 text-xs font-bold uppercase tracking-[0.16em] text-gold-light">
-                What We Do
-              </p>
-              <h2 className="font-display text-[clamp(28px,3.2vw,42px)] font-semibold">
-                A full growth ecosystem, under one roof
-              </h2>
-            </div>
+      {/* SNAPSHOTS */}
+      <section className="mx-auto max-w-[1240px] px-6 py-20 md:px-12">
+        <div className="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]">
+          {snapshots.map((s) => (
             <Link
-              href="/services"
-              className="whitespace-nowrap rounded-pill border-[1.5px] border-gold-light px-[26px] py-[13px] text-sm font-bold text-gold-light transition-all duration-300 hover:bg-gold-light hover:text-charcoal"
+              key={s.eyebrow}
+              href={s.href}
+              className="group flex flex-col rounded-card border border-ivory-border bg-ivory-card p-8 transition-all duration-[350ms] hover:-translate-y-2 hover:shadow-card"
             >
-              View All 10 Services &rarr;
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-gold-deep">
+                {s.eyebrow}
+              </p>
+              <p className="mb-6 flex-1 text-sm leading-[1.7] text-ink">{s.body}</p>
+              <span className="inline-flex items-center gap-1.5 text-sm font-bold text-charcoal group-hover:text-gold">
+                {s.cta.replace(" →", "")}
+                <ArrowRight size={14} />
+              </span>
             </Link>
-          </div>
-          <div className="grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
-            {featuredServices.map((svc, i) => (
-              <Link
-                key={svc.slug}
-                href="/services"
-                className="rounded-2xl border border-[rgba(217,189,122,0.25)] bg-[rgba(250,246,239,0.05)] p-[30px] px-[26px] transition-all duration-[350ms] hover:-translate-y-1.5 hover:bg-[rgba(217,189,122,0.1)]"
-              >
-                <div className="mb-4 font-display text-2xl text-gold-light">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <h3 className="mb-2 text-[17px] font-bold">{svc.name}</h3>
-                <p className="text-[13px] leading-[1.6] text-champagne">{svc.line}</p>
-              </Link>
-            ))}
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* IMPACT TEASER */}
-      <section className="mx-auto max-w-[1240px] px-6 py-24 text-center md:px-12">
-        <p className="mb-3.5 text-xs font-bold uppercase tracking-[0.16em] text-gold-deep">
-          Our Impact
+      {/* FINAL CTA */}
+      <section
+        className="px-6 py-24 text-center text-ivory md:px-12"
+        style={{ background: "#23201C" }}
+      >
+        <p className="mb-3.5 text-xs font-bold uppercase tracking-[0.16em] text-gold-light">
+          Your Next Growth Story Starts Here
         </p>
-        <h2 className="mb-12 font-display text-[clamp(28px,3.2vw,42px)] font-semibold">
-          Real work. Real results. Real relationships.
-        </h2>
-        <div className="mb-11 grid grid-cols-2 gap-5 md:grid-cols-4">
-          {impactStats.map((stat) => (
-            <div key={stat.label} className="rounded-card bg-ivory-card px-4 py-[30px]">
-              <div className="font-display text-[44px] font-semibold text-gold">{stat.value}</div>
-              <div className="mt-1.5 text-xs text-ink">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+        <p className="mx-auto mb-9 max-w-2xl text-[15px] leading-[1.9] text-[#DED4C0]">
+          Every successful brand was once an idea. Every thriving business was once a challenge.
+          Every impactful movement began with a conversation.
+        </p>
         <Link
-          href="/wins"
-          className="inline-block rounded-pill border-[1.5px] border-charcoal px-7 py-[13px] text-sm font-bold transition-all duration-300 hover:bg-charcoal hover:text-ivory"
+          href="/contact"
+          className="inline-flex items-center gap-2 rounded-pill px-8 py-4 text-base font-bold text-charcoal shadow-cta-gold"
+          style={{ background: "linear-gradient(120deg, #B8862E, #D9BD7A)" }}
         >
-          See Our Full Story &rarr;
+          Come, build <span aria-hidden="true">|</span> Grow <span aria-hidden="true">|</span> Disrupt
+          with us
         </Link>
       </section>
 
-      <CtaBand />
       <Footer />
     </>
   );

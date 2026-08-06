@@ -3,10 +3,12 @@ import { siteConfig } from "@/lib/content/site";
 
 const routes = [
   "",
-  "/who-we-are",
+  "/about",
   "/services",
-  "/wins",
+  "/impact",
+  "/ai-assistant",
   "/ai-campaign-builder",
+  "/consultation",
   "/contact",
 ];
 

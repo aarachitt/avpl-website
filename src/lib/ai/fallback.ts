@@ -40,7 +40,7 @@ const DEFAULT_CHANNELS: Record<string, string[]> = {
 };
 
 const SERVICES_MAP: Record<string, string[]> = {
-  "Brand Awareness": ["Branding", "PR", "Content Production", "Influencer Marketing"],
+  "Brand Awareness": ["Branding", "Public Relations", "Content Production", "Influencer Marketing"],
   "Lead Generation": [
     "Digital Marketing",
     "Marketing Strategy",
@@ -48,11 +48,11 @@ const SERVICES_MAP: Record<string, string[]> = {
     "Content Production",
   ],
   "Sales / Revenue": ["Digital Marketing", "Marketing Strategy", "Social Media Marketing"],
-  "Product Launch": ["Branding", "Event Marketing", "PR", "Digital Marketing"],
+  "Product Launch": ["Branding", "Events", "Public Relations", "Digital Marketing"],
   "Community Growth": ["Social Media Marketing", "Influencer Marketing", "Content Production"],
-  "Funding / Credibility": ["PR", "Branding", "Marketing Strategy"],
-  "Event Promotion": ["Event Marketing", "PR", "Social Media Marketing"],
-  "CSR Awareness": ["CSR Campaigns", "PR", "Content Production"],
+  "Funding / Credibility": ["Public Relations", "Branding", "Marketing Strategy"],
+  "Event Promotion": ["Events", "Public Relations", "Social Media Marketing"],
+  "CSR Awareness": ["CSR Campaigns", "Public Relations", "Content Production"],
   Recruitment: ["Branding", "Content Production", "Corporate Training"],
   "Website Traffic": ["Digital Marketing", "Content Production"],
 };

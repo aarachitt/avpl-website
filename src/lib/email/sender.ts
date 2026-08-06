@@ -24,8 +24,22 @@ export type SendResult =
 
 export async function sendLeadEmail(input: LeadEmailInput): Promise<SendResult> {
   const provider = (process.env.EMAIL_PROVIDER || "resend").toLowerCase();
-  const from = process.env.LEADS_FROM_EMAIL || "leads@aarachittventures.com";
-  const to = (process.env.LEADS_TO_EMAIL || "hello@aarachittventures.com")
+
+  // LEADS_FROM_EMAIL / LEADS_TO_EMAIL have no invented fallback — the
+  // real AVPL email is a launch blocker (see LAUNCH_CHECKLIST.md).
+  // Guessing a plausible-looking address here would silently misdeliver
+  // real leads, which is worse than failing loudly.
+  const from = process.env.LEADS_FROM_EMAIL;
+  const toRaw = process.env.LEADS_TO_EMAIL;
+  if (!from || !toRaw) {
+    logDevFallback(input);
+    return {
+      ok: false,
+      error: "LEADS_FROM_EMAIL / LEADS_TO_EMAIL are not configured yet",
+      provider,
+    };
+  }
+  const to = toRaw
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);

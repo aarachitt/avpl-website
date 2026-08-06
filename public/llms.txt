@@ -1,0 +1,25 @@
+# Aarachitt Ventures Pvt Ltd (AVPL)
+
+> Aarachitt Ventures Pvt Ltd is a Gujarat-rooted, globally minded 360° growth, branding, marketing, and business consultation company. It brings branding, marketing strategy, digital marketing, social media, public relations, events, influencer marketing, content production, CSR campaigns, corporate training, prototype/MVP and AI-integrated product development, website & digital presence, and on-ground activation together under one roof — backed by end-to-end consultation across creative, business, finance, legal, and startup ecosystems, delivered directly and through a partner network with a combined 20 years of experience.
+
+Mission: To help businesses, institutions, startups, and creators build brands, generate growth, and create meaningful impact through strategy-driven marketing, consultation, and storytelling — for clients in India and around the world.
+
+Vision: To be a globally trusted growth and consultation partner where creativity, commerce, and culture come together to build organisations that matter.
+
+Values: Strategy-Led, Culture-Rooted, Impact-First.
+
+## Core services
+Branding, Marketing Strategy, Consultation, Digital Marketing, Social Media Marketing, Public Relations, Events, Influencer Marketing, Content Production, CSR Campaigns, Corporate Training, Prototype & MVP Development, AI-Integrated Product Development, Website & Digital Presence, On-Ground Activation.
+
+## Consultation
+Delivered directly and through a curated partner network: Creative & Arts Consultation, Business & Finance Advisory, Family Trust & Will Management, Income Tax & All Types of Taxation, New Company Formation, SME and Main Board IPO Advisory, Legal Consultation, Startup & Business Consultation, Marketing/Training/Event & Activation Consultation, Film Production Consultation, Investor Relations & Business Merger Advisory. Aarachitt Ventures itself does not hold statutory legal, tax, or financial licences — these categories are delivered through independent partner organisations.
+
+## Key pages
+- Home: /
+- Who We Are: /about
+- Services: /services
+- Our Impact: /impact
+- AI Assistant: /ai-assistant
+- AI Campaign Builder: /ai-campaign-builder
+- Consultation & Partner Network: /consultation
+- Contact: /contact
