@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -36,26 +37,21 @@ export function Header() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-6 py-[18px] backdrop-blur-2xl transition-all duration-[350ms] md:px-12"
+      className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-6 py-[10px] backdrop-blur-2xl transition-all duration-[350ms] md:px-12"
       style={{
         background: scrolled ? "rgba(250,246,239,0.85)" : "rgba(250,246,239,0.4)",
         boxShadow: scrolled ? "0 4px 24px rgba(35,32,28,0.08)" : "none",
       }}
     >
-      <Link href="/" className="flex items-center gap-3" aria-label="AVPL — home">
-        <span className="flex w-5 flex-col items-center" aria-hidden="true">
-          <span className="-mb-[3px] h-[10px] w-[10px] rounded-full bg-gold" />
-          <span className="-mb-[3px] h-[9px] w-5 rounded-full bg-champagne" />
-          <span className="h-[11px] w-6 rounded-full bg-charcoal" />
-        </span>
-        <span>
-          <span className="block font-display text-base font-semibold leading-none tracking-[0.04em]">
-            AARACHITT
-          </span>
-          <span className="mt-[2px] block text-[8px] tracking-[0.18em] text-ink">
-            VENTURES PVT. LTD.
-          </span>
-        </span>
+      <Link href="/" className="flex items-center">
+        <Image
+          src="/brand/avpl-logo.png"
+          alt="Aarachitt Ventures Pvt Ltd"
+          width={1000}
+          height={1107}
+          priority
+          className="h-[46px] w-auto"
+        />
       </Link>
 
       {/* Desktop nav */}
@@ -103,7 +99,7 @@ export function Header() {
       {mobileOpen && (
         <div
           id="mobile-menu"
-          className="fixed inset-x-0 top-[64px] bottom-0 z-[99] flex flex-col gap-1 overflow-y-auto bg-ivory px-6 py-6 md:hidden"
+          className="fixed inset-x-0 top-[66px] bottom-0 z-[99] flex flex-col gap-1 overflow-y-auto bg-ivory px-6 py-6 md:hidden"
         >
           {navLinks.map((link) => {
             const active = isActive(link.href);

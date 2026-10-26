@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Footer } from "@/components/layout/Footer";
+import { HeroLogoReveal } from "@/components/home/HeroLogoReveal";
 import { siteConfig } from "@/lib/content/site";
 
 // Exact meta title/description for Home, per
@@ -117,22 +118,7 @@ export default function HomePage() {
                 className="flex h-full w-full flex-col items-center justify-center gap-[18px] overflow-hidden rounded-[28px] border border-ivory-border shadow-card-lg"
                 style={{ background: "linear-gradient(160deg, #F3EDE1, #E4D6B8)" }}
               >
-                <div className="flex animate-float-slow flex-col items-center" aria-hidden="true">
-                  <div
-                    className="-mb-[10px] h-[46px] w-[46px] rounded-full"
-                    style={{ background: "linear-gradient(160deg, #E8CE8F, #B8862E)" }}
-                  />
-                  <div className="-mb-2 h-10 w-[100px] rounded-full bg-charcoal" />
-                  <div
-                    className="-mb-[10px] h-11 w-[150px] rounded-full"
-                    style={{ background: "linear-gradient(160deg, #DDCBA8, #C9B48C)" }}
-                  />
-                  <div className="-mb-2 h-9 w-[90px] rounded-full bg-[#B98F72]" />
-                  <div
-                    className="h-[60px] w-[210px] rounded-full"
-                    style={{ background: "linear-gradient(160deg, #302B24, #17140F)" }}
-                  />
-                </div>
+                <HeroLogoReveal />
                 <p className="text-[11px] uppercase tracking-[0.1em] text-ink-soft">
                   Growth &middot; Consultation &middot; Impact
                 </p>
